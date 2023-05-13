@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<fo:layout-master-set>
+<fo:simple-page-master master-name="A5" page-height="14.85cm" page-width="21cm" margin-top="1cm" margin-bottom="1cm" margin-left="2cm" margin-right="2cm">
+<fo:region-body margin-top="1cm"/>
+<fo:region-before extent="3cm"/>
+<fo:region-after extent="1.5cm"/>
+</fo:simple-page-master>
+</fo:layout-master-set><fo:page-sequence master-reference="A5">
+<fo:flow flow-name="xsl-region-body">
+<fo:block font-size="16pt" font-family="sans-serif" font-weight="bold" line-height="15pt" space-after.optimum="3pt" text-align="center" color="#EC9191">
+RANKIN PUNTUACIONES SOLAR ADVENTURES
+</fo:block>
+<fo:block font-size="13pt" font-family="sans-serif" font-weight="bold" line-height="15pt" space-after.optimum="3pt" text-align="center">
+1er PUESTO:--- con 0 puntos
+</fo:block>
+<fo:block font-size="13pt" font-family="sans-serif" font-weight="bold" line-height="15pt" space-after.optimum="3pt" text-align="center">
+2o PUESTO:--- con 0 puntos
+</fo:block>
+<fo:block font-size="13pt" font-family="sans-serif" font-weight="bold" line-height="15pt" space-after.optimum="3pt" text-align="center">
+3er PUESTO:--- con 0 puntos
+</fo:block>
+</fo:flow>
+</fo:page-sequence>
+</fo:root>
