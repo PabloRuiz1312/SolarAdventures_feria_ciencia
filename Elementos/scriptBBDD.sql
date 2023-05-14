@@ -16,3 +16,5 @@ UPDATE clasificacion SET puntos = 0 WHERE ID = NEW.ID;
 END IF;
 END$$
 DELIMITER ;
+
+INSERT INTO clasificacion (nombre,puntos) VALUES ("---",0),("---",0),("---",0);
