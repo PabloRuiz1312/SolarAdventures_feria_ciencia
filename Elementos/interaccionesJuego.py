@@ -405,7 +405,7 @@ class iteracciones:
 
     def construirTraje(screen,protagonista,trajeAP,trajeAntipresion,hidrogeno,mostrarCarta,escenaNave3,puntos,puntosExtra):
         teclaPulsada = pygame.key.get_pressed()
-        if(protagonista.rect.x>191 and protagonista.rect.x<499 and protagonista.rect.y>540 and hidrogeno>=5 and trajeAP==False):
+        if(protagonista.rect.x>191 and protagonista.rect.x<499 and protagonista.rect.y>540 and hidrogeno>=5 and trajeAP==False and escenaNave3==True):
             if(escenaNave3==True and teclaPulsada[pygame.K_e]):
                 mostrarCarta=True
             if(mostrarCarta==True):
@@ -423,6 +423,8 @@ class iteracciones:
     
     def combate(screen,protagonista,antagonista,vidaJefe,dispararBala,disparo,contadorDisparo,disparoMaligno,balaOscura,pintarBalaOscura,vida,miraEspecial,explosionEspecial,pintarMira,pintarExplosion,ataqueEspecial,contadorAtaqueEspecial,contadorMira,contadorExplosion,derechaJefe,izquierdaJefe,soporteVital,balas,pintarMedicamentos,crearMedicamento):
         teclaPulsada = pygame.key.get_pressed()
+        if(protagonista.rect.x>antagonista.rect.x and protagonista.rect.x<(antagonista.rect.x+120) and protagonista.rect.y>antagonista.rect.y and protagonista.rect.y<(antagonista.rect.y+120)):
+            vida-=100
         if(contadorDisparo<=0):
             if(vidaJefe<=101 and vidaJefe>=60):
                 if(antagonista.rect.x<10):

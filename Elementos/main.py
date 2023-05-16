@@ -1260,9 +1260,9 @@ async def main():
             fraseSinSecretos="No pudiste conseguir los 700 puntos porque te faltaron secretos"
             fraseRestaTiempo="Por el tiempo acumulado se te restaran "+str(int((contMinutos*120)+(tiempo/60)*2))+" puntos"
             if(secretoLuna==True and soporteVital==True and distribuidor==True and puntosExtra==True):
-                fraseFinal="Por lo que tu puntuacion final es de "+str(int(puntos+700-((contMinutos*120)+(tiempo/60)*2)))+" puntos"
+                fraseFinal="Por lo que tu puntuacion final es de "+str(int(puntos+700-((contMinutos*120)+(tiempo/60))))+" puntos"
             else:
-                fraseFinal="Por lo que tu puntuacion final es de "+str(int(puntos-((contMinutos*120)+(tiempo/60)*2)))+" puntos"
+                fraseFinal="Por lo que tu puntuacion final es de "+str(int(puntos-((contMinutos*120)+(tiempo/60))*2))+" puntos"
             enter = "Pulsa enter para clasificarte"
             transmitir2 = fuenteFinal.render(fraseFinJuego,1,blanco)
             transmitir3 = fuenteFinal.render(fraseCuentaPuntos,1,blanco)
@@ -1282,43 +1282,46 @@ async def main():
             screen.blit(transmitir6,(240,480))
             screen.blit(transmitir7,(360,580))
             funcionando,contadorNivel = cargarMensajes.mensajeGanar(funcionando,contadorNivel)
-            if(funcionando==False):
-                if(secretoLuna==True and soporteVital==True and distribuidor==True and puntosExtra==True):
-                    puntos+=700
-                nombre = ""
-                salir = False
-                while(salir==False):
+        if(funcionando==False):
+            if(secretoLuna==True and soporteVital==True and distribuidor==True and puntosExtra==True):
+                puntos+=700
+            nombre = ""
+            salir = False
+            while(salir==False):
+                nombre = str (input("Escriba su nombre (15 caracteres)")) 
+                while(nombre.__len__()>15):
+                    print("Error su nombre es muy largo")
                     nombre = str (input("Escriba su nombre (15 caracteres)")) 
-                    while(nombre.__len__()>15):
-                        print("Error su nombre es muy largo")
-                        nombre = str (input("Escriba su nombre (15 caracteres)")) 
-                    opcion = str (input("Se quiere quedar con ese nombre (si/no)"))
-                    if(opcion.__eq__("si")):
-                        salir=True
-                puntos = puntos - int((contMinutos*120)+(tiempo/60)*2)
-                connection = pymysql.connect(host="localhost",user="root",password="admin",db="solarAdventures")
-                cursor = connection.cursor()
-                syntax = "INSERT INTO clasificacion (nombre,puntos) VALUES ('{}','{}')".format(nombre,puntos)
-                try:
-                    connection.begin()
-                    cursor.execute(syntax)
-                    connection.commit()
-                    print("Jugador "+str(nombre)+" con "+str(puntos)+" guardado con exito")
-                except Exception as e:
-                    raise
-                nombres = []
-                carPuntos = []
-                syntax = "SELECT nombre,puntos FROM clasificacion ORDER BY puntos DESC LIMIT 3"
-                try:
-                    cursor.execute(syntax)
-                    users = cursor.fetchall()
-                    for u in users:
-                        nombres.append(u[0])
-                        carPuntos.append(u[1])
-                    print("Jugadores cargados en memoria con exito")
-                except Exception as e:
-                    raise
-                DBJuego.escribirGanadores(nombres,carPuntos)
+                while(nombre.__eq__("")):
+                    print("Error su nombre esta vacio vuelva a introducirlo")
+                    nombre = str (input("Escriba su nombre (15 caracteres)"))
+                opcion = str (input("Se quiere quedar con ese nombre (si/no)"))
+                if(opcion.__eq__("si")):
+                    salir=True
+            puntos = puntos - int((contMinutos*120)+(tiempo/60)*2)
+            connection = pymysql.connect(host="localhost",user="root",password="admin",db="solarAdventures")
+            cursor = connection.cursor()
+            syntax = "INSERT INTO clasificacion (nombre,puntos) VALUES ('{}','{}')".format(nombre,puntos)
+            try:
+                connection.begin()
+                cursor.execute(syntax)
+                connection.commit()
+                print("Jugador "+str(nombre)+" con "+str(puntos)+" guardado con exito")
+            except Exception as e:
+                raise
+            nombres = []
+            carPuntos = []
+            syntax = "SELECT nombre,puntos FROM clasificacion ORDER BY puntos DESC LIMIT 3"
+            try:
+                cursor.execute(syntax)
+                users = cursor.fetchall()
+                for u in users:
+                    nombres.append(u[0])
+                    carPuntos.append(u[1])
+                print("Jugadores cargados en memoria con exito")
+            except Exception as e:
+                raise
+            DBJuego.escribirGanadores(nombres,carPuntos)
         tiempo,contMinutos = sistemaTiempo.contarTiempo(salirComienzo,salirControles,salirPuntos,salirNivelLuna,salirNivelMarte,salirNivelJupiter,salirNivelUrano,salirNivelPluton,tiempo,contMinutos,screen,luna,marte,jupiter,urano,pluton,faseInicial,finVida,finGasolina,finArreglos,finJupiter,vidaJefe)
         frasePut = "PUNTOS:"+(str(puntos))
         transmitir = frasePuntos.render(frasePut,1,blanco)

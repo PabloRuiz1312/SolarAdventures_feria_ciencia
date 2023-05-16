@@ -28,7 +28,15 @@ class sistemaTiempo:
         blanco = pygame.Color(255,255,255)
         if(salirComienzo==True and salirControles==True and salirPuntos==True):
             if(faseInicial==True):
-                tiempo,contMinutos = sistemaTiempo.tiempoEnPlaneta(tiempo,contMinutos,screen)
+                frasePuntos = pygame.font.Font(None,80)
+                blanco = pygame.Color(255,255,255)
+                fraseTiempo = "TIEMPO "+str(contMinutos)+":"+str(int(tiempo/1000))
+                transmitir = frasePuntos.render(fraseTiempo,1,blanco)
+                screen.blit(transmitir,(20,880))
+                tiempo+=1
+                if(tiempo/1000>60):
+                    tiempo=0
+                    contMinutos+=1
             if(salirNivelLuna==False and faseInicial==False and luna==True):
                 tiempo,contMinutos = sistemaTiempo.tiempoEnNivel(tiempo,contMinutos,screen)
             elif(salirNivelMarte==False and luna==False and marte==True):
